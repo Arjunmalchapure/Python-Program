@@ -1,0 +1,59 @@
+import requests
+from bs4 import BeautifulSoup
+
+# website 1
+url1 = "http:/flipkart.com/search?q=product"
+response1 = requests.get(url1)
+soup1 = BeautifulSoup(response1.text,"html.parser")
+
+# product1 information
+product_name1 = []
+product_categories1 = []
+product_details1 = []
+price1 = []
+
+for product in soup1.find_all("div",class_="product-card"):
+    name = product.find("h3").text
+    category = product.find("p",class_="category").text
+    details = product.find("p",class_="details").text
+    price = product.find("p",span="price").text
+
+    product_name1.append(name)
+    product_categories1.append(category)
+    product_details1.append(details)
+    price1.append(price)
+
+# website 2
+url2 = "http:/flipkart.com/search?q=homeaplliances"
+response2 = requests.get(url2)
+soup2 = BeautifulSoup(response2.text,"html.parser")
+
+# product2 information
+product_name2 = []
+product_categories2 = []
+product_details2 = []
+price2 = []
+
+for product in soup2.find_all("div",class_="product-card"):
+    name = product.find("h3").text
+    category = product.find("p",class_="category").text
+    details = product.find("p",class_="details").text
+    price = product.find("span",class_="price").text
+
+    product_name2.append(name)
+    product_categories2.append(category)
+    product_details2.append(details)
+    price2.append(price)
+
+# print result
+print("website 1:")
+print("product Names:",product_name1)
+print("product Categories:",product_categories1)
+print("product Details:",product_details1)
+print("product Prices:",price1)
+
+print("website 2:")
+print("product Names:",product_name2)
+print("product Categories:",product_categories2)
+print("product Details:",product_details2)
+print("product Prices:",price2)
